@@ -16,8 +16,11 @@ model.fit(X, y)
 # Title
 st.title("Student Performance Prediction System")
 
-st.write("Enter the student's details to predict the final score.")
-
+st.write(
+    "This application uses Machine Learning to predict a student's "
+    "final score based on study hours, attendance, previous marks, "
+    "and assignment score."
+)
 # User inputs
 study_hours = st.number_input("Study Hours", min_value=0.0, max_value=24.0)
 attendance = st.number_input("Attendance (%)", min_value=0.0, max_value=100.0)
@@ -33,4 +36,14 @@ if st.button("Predict Final Score"):
         assignment_score
     ]])
 
-    st.success(f"Predicted Final Score: {prediction[0]:.2f}")
+    score = prediction[0]
+
+    if score >= 75:
+        performance = "Good"
+    elif score >= 50:
+        performance = "Average"
+    else:
+        performance = "Needs Improvement"
+
+    st.success(f"Predicted Final Score: {score:.2f}")
+    st.info(f"Performance Level: {performance}")
